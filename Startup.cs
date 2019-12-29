@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using EthicalScoring.Data;
+using EthicalScoring.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace EthicalScoring
 {
@@ -29,6 +31,8 @@ namespace EthicalScoring
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();
+            services.AddDbContext<TreisTestContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
