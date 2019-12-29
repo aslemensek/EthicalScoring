@@ -1,6 +1,6 @@
 # EthicalScoring
 
-# Environment required:
+# Environment:
 - Visual Studio Professional 2019 with 
   - ASP.NET and web development workflow
   - Azure development workflow
