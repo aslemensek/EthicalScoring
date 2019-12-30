@@ -4,7 +4,10 @@ namespace EthicalScoring.Data.Repository
 {
     public interface IUnitOfWork
     {
-        IRepository<Institution> Institutions { get; }
+        IInstitutionRepository Institutions { get; }
+        IEsgCriteriaRepository Criteria { get; }
+        IEsgCriteriaScoreRepository CriteriaScores { get; }
+        IEsgScoreRepository Scores { get; }
         void Commit();
     }
 }

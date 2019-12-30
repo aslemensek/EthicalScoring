@@ -39,6 +39,6 @@ else
 
     protected override void OnInitialized()
     {
-        institutions = UnitOfWork.Institutions.Get();
+        institutions = UnitOfWork.Institutions.GetAll();
     }
 }
