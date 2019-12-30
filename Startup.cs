@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using EthicalScoring.Data;
 using EthicalScoring.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using EthicalScoring.Data.Repository;
 
 namespace EthicalScoring
 {
@@ -33,6 +34,12 @@ namespace EthicalScoring
             services.AddSingleton<WeatherForecastService>();
             services.AddDbContext<TreisTestContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            // Resolve the services from the service provider
+            var sp = services.BuildServiceProvider();
+            TreisTestContext context = sp.GetService<TreisTestContext>();
+
+            services.AddSingleton<UnitOfWork>(new UnitOfWork(context));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

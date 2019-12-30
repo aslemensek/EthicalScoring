@@ -1,4 +1,44 @@
 ﻿@page "/"
 
+@using EthicalScoring.Data.Models
+@using EthicalScoring.Data.Repository
+@inject UnitOfWork UnitOfWork
+
 <h1>Institutions</h1>
 
+@if (institutions == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>TName</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var institution in institutions)
+            {
+                <tr>
+                    <td>@institution.InstitutionId</td>
+                    <td>@institution.InstitutionName</td>
+                    <td></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private IEnumerable<Institution> institutions;
+
+    protected override void OnInitialized()
+    {
+        institutions = UnitOfWork.Institutions.Get();
+    }
+}
