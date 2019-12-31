@@ -1,0 +1,44 @@
+﻿@page "/score"
+
+@using EthicalScoring.Data.Models
+@using EthicalScoring.Data.Repository
+@inject UnitOfWork UnitOfWork
+
+<h1>Score</h1>
+
+@if (scores == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>EsgScoreId</th>
+                <th>Score</th>
+                <th>ScoreAsPercentage</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var score in scores)
+            {
+                <tr>
+                    <td>@score.EsgScoreId</td>
+                    <td>@score.Score</td>
+                    <td>@score.ScoreAsPercentage</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private IEnumerable<Data.Models.EsgScore> scores;
+
+    protected override void OnInitialized()
+    {
+        scores = UnitOfWork.Scores.GetAll();
+    }
+}

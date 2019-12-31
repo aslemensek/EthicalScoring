@@ -1,0 +1,46 @@
+﻿@page "/criteria"
+
+@using EthicalScoring.Data.Models
+@using EthicalScoring.Data.Repository
+@inject UnitOfWork UnitOfWork
+
+<h1>Criteria</h1>
+
+@if (criteria == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>EsgCriteriaId</th>
+                <th>CriteriaName</th>
+                <th>CategoryName</th>
+                <th>WeightAsPercentageOfTotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var criteria in criteria)
+            {
+                <tr>
+                    <td>@criteria.EsgCriteriaId</td>
+                    <td>@criteria.CriteriaName</td>
+                    <td>@criteria.CategoryName</td>
+                    <td>@criteria.WeightAsPercentageOfTotal</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private IEnumerable<Data.Models.EsgCriteria> criteria;
+
+    protected override void OnInitialized()
+    {
+        criteria = UnitOfWork.Criteria.GetAll();
+    }
+}
