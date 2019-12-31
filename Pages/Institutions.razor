@@ -17,17 +17,37 @@ else
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th></th>
+                <th>Total Score (%)</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var institution in institutions)
             {
-                <tr>
-                    <td>@institution.InstitutionId</td>
-                    <td>@institution.InstitutionName</td>
-                    <td></td>
-                </tr>
+            <tr>
+                <td>@institution.InstitutionId</td>
+                <td>@institution.InstitutionName</td>
+
+
+                @{
+                    var score_color = "#fff";
+                    if (institution.TotalScoreAsPercentage < 50)
+                    {
+                        score_color = "red";
+                    }
+                    else if (institution.TotalScoreAsPercentage <= 75)
+                    {
+                        score_color = "orange";
+                    }
+                    else { 
+                        score_color = "green";
+                    }
+                }
+                <td>
+                    <b style="color:@score_color">
+                        @institution.TotalScoreAsPercentage
+                    </b>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
@@ -35,10 +55,11 @@ else
 
 
 @code {
-    private IEnumerable<Institution> institutions;
+    private string score_color;
+    private IEnumerable<Data.Repository.DTO.InstitutionDto> institutions;
 
     protected override void OnInitialized()
     {
-        institutions = UnitOfWork.Institutions.GetAll();
+        institutions = UnitOfWork.Institutions.GetInstitutions();
     }
 }

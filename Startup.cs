@@ -32,7 +32,10 @@ namespace EthicalScoring
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddDbContext<TreisTestContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options
+                .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+                );
 
             // Resolve the services from the service provider
             var sp = services.BuildServiceProvider();
