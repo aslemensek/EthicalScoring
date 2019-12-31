@@ -15,4 +15,8 @@
 
 ## TODO
 - In Blazor, DBContext is alive during the whole time of connection with client (as oppose to per HTTP call in Web API/MVC), this means DBConnection 
-  will need to be scoped differently (not per session) or something else.
+  will need to be scoped differently (not per session) or something else. This will improve scalability, among other benefits.
+- Currently EF Core is using optimistic concurrency (in concurrent environment, last update will win), 
+  for pesimitic concurrency, add RowVersion colomn to each entity (as a TimeStamp) for concurrency tracking to alert user during commiting transaction
+  so at least to alert on the fields that have changed.
+  This is even more of an issue due to Blazor maintaining DBContext's state for the duration of connection (of browser tab) 
