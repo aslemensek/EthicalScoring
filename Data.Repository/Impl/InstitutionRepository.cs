@@ -55,8 +55,8 @@ namespace EthicalScoring.Data.Repository
                 .GroupBy(m => m.InstitutionId)
                 .Select(m => new InstitutionDto
                 {
-                    InstitutionId = m.Key, //Workaround as .First() not supported for anonymous types
-                    InstitutionName = m.Max(a => a.InstitutionName),
+                    Id = m.Key, //Workaround as .First() not supported for anonymous types
+                    Name = m.Max(a => a.InstitutionName),
                     TotalScoreAsPercentage = m.Sum(s => (s.ScoreAsPercentage ?? 0) * s.WeightAsPercentageOfTotal * 100)
                 })
                 .ToList();
@@ -68,8 +68,8 @@ namespace EthicalScoring.Data.Repository
                 .Where(institution => !context.EsgCriteriaScore.Any(esgCriteriaScores => esgCriteriaScores.InstitutionId == institution.InstitutionId))
                 .Select(institution => new InstitutionDto
                 {
-                    InstitutionId = institution.InstitutionId,
-                    InstitutionName = institution.InstitutionName,
+                    Id = institution.InstitutionId,
+                    Name = institution.InstitutionName,
                     TotalScoreAsPercentage = (decimal)0
                 })
 
@@ -86,7 +86,7 @@ namespace EthicalScoring.Data.Repository
         public void Add(InstitutionDto institutionDto) {
             Institution institution = new Institution()
             {
-                InstitutionName = institutionDto.InstitutionName
+                InstitutionName = institutionDto.Name
             };
 
             context.Institution.Add(institution);

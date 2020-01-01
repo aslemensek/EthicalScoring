@@ -2,7 +2,7 @@
 
 @inherits InstitutionsAddBase
 
-<h2>Create Institution</h2>
+<h2>Create New Institution</h2>
 <p>
     <a href="/">Back</a>
 </p>
@@ -15,22 +15,24 @@
 }
 else
 {
-    <form>
+    <EditForm Model="@institutionDto" OnValidSubmit="@CreateInstitution">
         <div class="row">
             <div class="col-md-8">
                 <div class="form-group">
                     <label for="Name" class="control-label">Name</label>
-                    <input for="Name" class="form-control" @bind="@institutionDto.InstitutionName" />
+                    <input for="Name" class="form-control" @bind="@institutionDto.Name" />
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-group">
-                    <input type="button" class="btn btn-primary" @onclick="@CreateInstitution" value="Save" />
+                    <button type="submit">Save</button>
                     <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
                 </div>
             </div>
         </div>
-    </form>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+    </EditForm>
 }
