@@ -11,7 +11,8 @@ namespace EthicalScoring.Data.Repository
         {
         }
 
-        public InstitutionDto GetByID(int id) {
+        public InstitutionDto GetByID(int id)
+        {
             Institution inst = base.GetByID(id);
 
             return new InstitutionDto()
@@ -93,7 +94,8 @@ namespace EthicalScoring.Data.Repository
             return institutions;
         }
 
-        public void Add(InstitutionDto institutionDto) {
+        public void Add(InstitutionDto institutionDto)
+        {
             Institution institution = new Institution()
             {
                 InstitutionName = institutionDto.Name
@@ -122,6 +124,49 @@ namespace EthicalScoring.Data.Repository
             };
 
             base.Delete(institution);
+        }
+
+        public List<ScorecardDto> GetScoreCard(int institutionId)
+        {
+            List<ScorecardDto> scorecardList = context.EsgCriteriaScore
+                .Join(context.EsgCriteria,
+                    a => a.EsgCriteriaId, b => b.EsgCriteriaId, (a, b) => new
+                    {
+                        a.InstitutionId,
+                        b.EsgCriteriaId,
+                        b.CriteriaName,
+                        b.CategoryName,
+                        b.WeightAsPercentageOfTotal,
+                        a.EsgScoreId
+                    })
+                .Join(context.EsgScore,
+                    a => a.EsgScoreId, b => b.EsgScoreId, (a, b) => new
+                    {
+                        a.InstitutionId,
+                        a.EsgCriteriaId,
+                        a.CriteriaName,
+                        a.CategoryName,
+                        a.WeightAsPercentageOfTotal,
+                        b.EsgScoreId,
+                        b.Score,
+                        ScoreAsPercentage = (decimal?)b.ScoreAsPercentage
+                    })
+                .Where(m => m.InstitutionId == institutionId)
+                .Select(m => new ScorecardDto
+                {
+                    InstitutionId = m.InstitutionId,
+                    CriteriaId = m.EsgCriteriaId,
+                    CriteriaName = m.CriteriaName,
+                    CategoryName = m.CategoryName,
+                    WeightAsPercentageOfTotal = m.WeightAsPercentageOfTotal,
+                    ScoreId = m.EsgScoreId,
+                    Score = m.Score,
+                    ScoreAsPercentage = ((m.ScoreAsPercentage ?? 0) * 100)
+                })
+                .ToList();
+
+
+            return scorecardList;
         }
     }
 }

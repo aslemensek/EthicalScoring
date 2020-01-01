@@ -8,6 +8,7 @@ namespace EthicalScoring.Data.Repository
     {
         InstitutionDto GetByID(int id);
         List<InstitutionDto> GetAll();
+        List<ScorecardDto> GetScoreCard(int institutionId);
         void Add(InstitutionDto institution);
         void Update(InstitutionDto institution);
         void Delete(InstitutionDto institution);

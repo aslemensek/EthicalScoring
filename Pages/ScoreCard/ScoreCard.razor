@@ -1,0 +1,56 @@
+﻿@page "/scorecard/{id}"
+
+@inherits ScorecardUpdateBase
+
+<h2>Update Scorecard</h2>
+<p>
+    <a href="/">Back</a>
+</p>
+
+<hr />
+
+@if (scorecardDtos == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+<EditForm Model="@scorecardDtos" OnValidSubmit="@UpdateScorecard">
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>CategoryName</th>
+                <th>CriteriaName</th>
+                <th>Criteria Weight</th>
+                <th>Score</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var scorecard in scorecardDtos)
+            {
+            <tr>
+                <td>@scorecard.CategoryName</td>
+                <td>@scorecard.CriteriaName</td>
+                <td>@scorecard.WeightAsPercentageOfTotal</td>
+                <td>@scorecard.Score</td>
+                <td>@scorecard.ScoreAsPercentage</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <button type="submit">Save</button>
+                <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+            </div>
+        </div>
+    </div>
+
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+</EditForm>
+}
