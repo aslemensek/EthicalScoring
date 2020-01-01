@@ -6,6 +6,8 @@
   - Azure development workflow
   - Data storage and processing
   
+- This is Blazor (Server-side) Application with SignalR connection maintained between Client/Server
+
 - If running solution locally, the environment will prompt you to create local certificate, 
   confirm the option so that the certificate can be generated and added to Trusted Root Certificate Authority store. 
   
