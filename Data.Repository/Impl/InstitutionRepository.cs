@@ -23,7 +23,7 @@ namespace EthicalScoring.Data.Repository
             //        })
             //    ;
 
-            var institutions = context.Institution
+            List<InstitutionDto> institutionsWithScorecards = context.Institution
                 .Join(context.EsgCriteriaScore,
                     a => a.InstitutionId, b => b.InstitutionId, (a, b) => new
                     {
@@ -60,7 +60,25 @@ namespace EthicalScoring.Data.Repository
                     TotalScoreAsPercentage = m.Sum(s => (s.ScoreAsPercentage ?? 0) * s.WeightAsPercentageOfTotal * 100)
                 })
                 .ToList();
-                
+
+
+
+            // Include newly created institutions where there is no scorecard created yet
+            List<InstitutionDto> institutionsWithNoScoreCard = context.Institution
+                .Where(institution => !context.EsgCriteriaScore.Any(esgCriteriaScores => esgCriteriaScores.InstitutionId == institution.InstitutionId))
+                .Select(institution => new InstitutionDto
+                {
+                    InstitutionId = institution.InstitutionId,
+                    InstitutionName = institution.InstitutionName,
+                    TotalScoreAsPercentage = (decimal)0
+                })
+
+            .ToList();
+
+
+            List<InstitutionDto> institutions = new List<InstitutionDto>();
+            institutions.AddRange(institutionsWithScorecards);
+            institutions.AddRange(institutionsWithNoScoreCard);
 
             return institutions;
         }
