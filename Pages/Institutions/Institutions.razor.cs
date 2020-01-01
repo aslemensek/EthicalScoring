@@ -13,7 +13,7 @@ namespace EthicalScoring.Pages
 
         protected override void OnInitialized()
         {
-            institutions = UnitOfWork.Institutions.GetInstitutions();
+            institutions = UnitOfWork.Institutions.GetAll();
         }
     }
 }

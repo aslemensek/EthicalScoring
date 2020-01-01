@@ -11,7 +11,7 @@ namespace EthicalScoring.Data.Repository
         {
         }
 
-        public List<InstitutionDto> GetInstitutions()
+        public List<InstitutionDto> GetAll()
         {
             //var institutions = context.Institution
             //    .Include(institution => institution.EsgCriteriaScore)
@@ -63,6 +63,15 @@ namespace EthicalScoring.Data.Repository
                 
 
             return institutions;
+        }
+
+        public void Add(InstitutionDto institutionDto) {
+            Institution institution = new Institution()
+            {
+                InstitutionName = institutionDto.InstitutionName
+            };
+
+            context.Institution.Add(institution);
         }
     }
 }

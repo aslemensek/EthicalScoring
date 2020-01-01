@@ -6,7 +6,8 @@ namespace EthicalScoring.Data.Repository
 {
     public interface IInstitutionRepository : IGenericRepository<Institution>
     {
-        List<InstitutionDto> GetInstitutions();
+        List<InstitutionDto> GetAll();
+        void Add(InstitutionDto institution);
     }
 }
 

@@ -1,0 +1,57 @@
+﻿@page "/"
+
+@inherits InstitutionsBase
+
+<h1>Institutions</h1>
+
+<p>
+    <a href="/addinstitution">Create New Institutions</a>
+</p>
+
+@if (institutions == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Total Score (%)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var institution in institutions)
+            {
+                <tr>
+                    <td>@institution.InstitutionId</td>
+                    <td>@institution.InstitutionName</td>
+
+
+                    @{
+                        var score_color = "#fff";
+                        if (institution.TotalScoreAsPercentage < 50)
+                        {
+                            score_color = "red";
+                        }
+                        else if (institution.TotalScoreAsPercentage <= 75)
+                        {
+                            score_color = "orange";
+                        }
+                        else
+                        {
+                            score_color = "green";
+                        }
+                    }
+                    <td>
+                        <b style="color:@score_color">
+                            @institution.TotalScoreAsPercentage
+                        </b>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
