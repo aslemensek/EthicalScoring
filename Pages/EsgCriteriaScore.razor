@@ -1,8 +1,6 @@
 ﻿@page "/criteriascore"
 
-@using EthicalScoring.Data.Models
-@using EthicalScoring.Data.Repository
-@inject UnitOfWork UnitOfWork
+@inherits EsgCriteriaScoreBase
 
 <h1>CriteriaScore</h1>
 
@@ -33,14 +31,4 @@ else
             }
         </tbody>
     </table>
-}
-
-
-@code {
-    private IEnumerable<Data.Models.EsgCriteriaScore> criteriascores;
-
-    protected override void OnInitialized()
-    {
-        criteriascores = UnitOfWork.CriteriaScores.GetAll();
-    }
 }

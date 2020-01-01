@@ -1,8 +1,6 @@
 ﻿@page "/"
 
-@using EthicalScoring.Data.Models
-@using EthicalScoring.Data.Repository
-@inject UnitOfWork UnitOfWork
+@inherits InstitutionsBase
 
 <h1>Institutions</h1>
 
@@ -51,15 +49,4 @@ else
             }
         </tbody>
     </table>
-}
-
-
-@code {
-    private string score_color;
-    private IEnumerable<Data.Repository.DTO.InstitutionDto> institutions;
-
-    protected override void OnInitialized()
-    {
-        institutions = UnitOfWork.Institutions.GetInstitutions();
-    }
 }
