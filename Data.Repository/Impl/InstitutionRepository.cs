@@ -12,7 +12,7 @@ namespace EthicalScoring.Data.Repository
         }
 
         public InstitutionDto GetByID(int id) {
-            Institution inst = context.Institution.Where(m => m.InstitutionId == id).FirstOrDefault(); ;
+            Institution inst = base.GetByID(id);
 
             return new InstitutionDto()
             {
@@ -99,7 +99,7 @@ namespace EthicalScoring.Data.Repository
                 InstitutionName = institutionDto.Name
             };
 
-            context.Institution.Add(institution);
+            base.Insert(institution);
         }
 
         public void Update(InstitutionDto institutionDto)
@@ -110,7 +110,7 @@ namespace EthicalScoring.Data.Repository
                 InstitutionName = institutionDto.Name
             };
 
-            context.Institution.Update(institution);
+            base.Update(institution);
         }
 
         public void Delete(InstitutionDto institutionDto)
@@ -121,7 +121,7 @@ namespace EthicalScoring.Data.Repository
                 InstitutionName = institutionDto.Name
             };
 
-            context.Institution.Remove(institution);
+            base.Delete(institution);
         }
     }
 }

@@ -34,14 +34,15 @@ namespace EthicalScoring
             services.AddDbContext<TreisTestContext>(options =>
                 options
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking), 
+                ServiceLifetime.Transient
                 );
 
             // Resolve the services from the service provider
             var sp = services.BuildServiceProvider();
-            TreisTestContext context = sp.GetService<TreisTestContext>();
+            //TreisTestContext context = sp.GetService<TreisTestContext>();
 
-            services.AddSingleton<UnitOfWork>(new UnitOfWork(context));
+            services.AddTransient<UnitOfWork>(m => new UnitOfWork(sp.GetService<TreisTestContext>()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
