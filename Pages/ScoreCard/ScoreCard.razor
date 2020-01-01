@@ -2,6 +2,8 @@
 
 @inherits ScorecardUpdateBase
 
+@using System.Linq
+
 <h2>Update Scorecard</h2>
 <p>
     <a href="/">Back</a>
@@ -11,7 +13,7 @@
 
 @if (scorecardDtos == null)
 {
-    <p><em>Loading...</em></p>
+<p><em>Loading...</em></p>
 }
 else
 {
@@ -35,7 +37,15 @@ else
                 <td>@scorecard.CategoryName</td>
                 <td>@scorecard.CriteriaName</td>
                 <td>@scorecard.WeightAsPercentageOfTotal</td>
-                <td>@scorecard.Score</td>
+                <td>
+                    <InputSelect @bind-Value="@scorecard.Score">
+                        @foreach (var score in scoreList)
+                        {
+                        <option value=@score>@score</option>
+                        }
+                    </InputSelect>
+
+                </td>
                 <td>@scorecard.ScoreAsPercentage</td>
             </tr>
             }

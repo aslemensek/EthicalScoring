@@ -13,6 +13,8 @@ namespace EthicalScoring.Pages
         [Parameter] public string id { get; set; }
         protected List<ScorecardDto> scorecardDtos;
 
+        protected List<string> scoreList = new List<string>() { "N/A", "0", "1", "2", "3" };
+
         protected override void OnInitialized()
         {
             scorecardDtos = UnitOfWork.Institutions.GetScoreCard(int.Parse(id));
@@ -32,6 +34,14 @@ namespace EthicalScoring.Pages
         {
             NavigationManager.NavigateTo("/");
         }
+
+
+        protected void ScoreChanged(ChangeEventArgs e)
+        {
+            string selectedString = e.Value.ToString();
+            //TODO
+        }
+
 
     }
 }

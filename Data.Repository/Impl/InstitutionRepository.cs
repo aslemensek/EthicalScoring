@@ -163,6 +163,7 @@ namespace EthicalScoring.Data.Repository
                     Score = m.Score,
                     ScoreAsPercentage = ((m.ScoreAsPercentage ?? 0) * 100)
                 })
+                .OrderBy(m => m.CategoryName)
                 .ToList();
 
 
