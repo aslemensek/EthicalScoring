@@ -34,7 +34,7 @@ namespace EthicalScoring
             services.AddDbContext<TreisTestContext>(options =>
                 options
                 .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-                //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
                 );
 
             // Resolve the services from the service provider

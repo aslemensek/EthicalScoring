@@ -1,0 +1,38 @@
+﻿@page "/deleteinstitution/{id}"
+
+@inherits InstitutionsDeleteBase
+
+<h2>Delete Institution, are you sure?</h2>
+<p>
+    <a href="/">Back</a>
+</p>
+
+<hr />
+
+@if (institutionDto == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <EditForm Model="@institutionDto" OnValidSubmit="@DeleteInstitution">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label for="Name" class="control-label">Name</label>
+                    <input for="Name" class="form-control" @bind="@institutionDto.Name" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <button type="submit">Delete</button>
+                    <input type="button" class="btn" @onclick="@Cancel" value="Cancel" />
+                </div>
+            </div>
+        </div>
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+    </EditForm>
+}

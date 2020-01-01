@@ -54,7 +54,7 @@ namespace EthicalScoring.Data.Repository
 
         public void Commit()
         {
-            _dbContext.SaveChanges();
+            _dbContext.SaveChanges(true);
         }
     }
 }

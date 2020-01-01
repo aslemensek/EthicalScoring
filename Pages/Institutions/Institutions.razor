@@ -20,37 +20,42 @@ else
                 <th>Id</th>
                 <th>Name</th>
                 <th>Total Score (%)</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var institution in institutions)
             {
-                <tr>
-                    <td>@institution.Id</td>
-                    <td>@institution.Name</td>
+            <tr>
+                <td>@institution.Id</td>
+                <td>@institution.Name</td>
 
 
-                    @{
-                        var score_color = "#fff";
-                        if (institution.TotalScoreAsPercentage < 50)
-                        {
-                            score_color = "red";
-                        }
-                        else if (institution.TotalScoreAsPercentage <= 75)
-                        {
-                            score_color = "orange";
-                        }
-                        else
-                        {
-                            score_color = "green";
-                        }
+                @{
+                    var score_color = "#fff";
+                    if (institution.TotalScoreAsPercentage < 50)
+                    {
+                        score_color = "red";
                     }
-                    <td>
-                        <b style="color:@score_color">
-                            @institution.TotalScoreAsPercentage
-                        </b>
-                    </td>
-                </tr>
+                    else if (institution.TotalScoreAsPercentage <= 75)
+                    {
+                        score_color = "orange";
+                    }
+                    else
+                    {
+                        score_color = "green";
+                    }
+                }
+                <td>
+                    <b style="color:@score_color">
+                        @institution.TotalScoreAsPercentage
+                    </b>
+                </td>
+                <td><a href='/editinstitution/@institution.Id'>Edit</a> </td>
+                <td><a href='/deleteinstitution/@institution.Id'>Delete</a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

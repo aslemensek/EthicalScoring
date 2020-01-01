@@ -20,4 +20,5 @@
   for pesimitic concurrency, add RowVersion colomn to each entity (as a TimeStamp) for concurrency tracking to alert user during commiting transaction
   so at least to alert on the fields that have changed.
   This is even more of an issue due to Blazor maintaining DBContext's state for the duration of connection (of browser tab) 
+- Use reusable Blazor Components for Add/Update pages
 - Microservice Architecture: WebApi HTTP endpoints to expose services
